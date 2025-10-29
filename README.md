@@ -1,8 +1,3 @@
-<p align="center">
-  <a href="https://github.com/MuhamedElsayedd/Ecommerce_Project" target="_blank">
-    <img src="https://img.icons8.com/?size=512&id=59952&format=png" width="120" alt="Ecommerce Project Logo">
-  </a>
-</p>
 
 <h1 align="center">🛍️ Ecommerce Project (Laravel API)</h1>
 
@@ -11,11 +6,6 @@
   <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/badge/PHP-8.2-blue?style=for-the-badge&logo=php"></a>
   <a href="#"><img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=githubactions"></a>
   <a href="#"><img src="https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge"></a>
-</p>
-
-<p align="center">
-  <strong>Modern RESTful Laravel Backend for E-commerce Platforms</strong><br>
-  Built with ❤️ by <a href="https://github.com/MuhamedElsayedd">Muhamed Elsayed</a>
 </p>
 
 ---
