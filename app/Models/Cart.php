@@ -9,7 +9,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'total'];
 
     public function user()
     {
@@ -19,5 +19,11 @@ class Cart extends Model
     public function items()
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    // داخل Model Cart
+    public function getTotalAttribute()
+    {
+        return $this->items->sum(fn($item) => $item->quantity * $item->product->price);
     }
 }
