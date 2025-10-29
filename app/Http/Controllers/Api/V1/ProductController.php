@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -28,7 +28,6 @@ class ProductController extends Controller
 
             return $this->successResponse($products, 'Products retrieved successfully');
         } catch (\Throwable $e) {
-            $this->logError('Fetching products failed', $e);
             return $this->errorResponse('Unable to fetch products', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -37,7 +36,6 @@ class ProductController extends Controller
     {
         try {
             $validated = $request->validated();
-
             $product = Product::create($validated);
 
             return $this->successResponse(
@@ -46,8 +44,6 @@ class ProductController extends Controller
                 statusCode: Response::HTTP_CREATED
             );
         } catch (\Throwable $e) {
-            $this->logError('Product creation failed', $e);
-
             return $this->errorResponse(
                 message: 'Failed to create product',
                 errors: config('app.debug') ? $e->getMessage() : null,
@@ -55,36 +51,51 @@ class ProductController extends Controller
             );
         }
     }
-
-    public function show(Product $product)
+    public function show($id)
     {
-        return response()->json([
-            'status' => true,
-            'message' => 'Product fetched successfully',
-            'data' => $product,
-        ], Response::HTTP_OK);
+        $product = Product::find($id);
+
+        if (!$product) {
+            return $this->errorResponse(
+                message: 'Product not found',
+                statusCode: Response::HTTP_NOT_FOUND
+            );
+        }
+
+        return $this->successResponse(
+            data: $product,
+            message: 'Product fetched successfully',
+            statusCode: Response::HTTP_OK
+        );
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         $validated = $request->validated();
 
+        if (empty($validated)) {
+            return $this->errorResponse(
+                message: 'You must provide at least one field to update.',
+                statusCode: Response::HTTP_BAD_REQUEST
+            );
+        }
+
         $product->update($validated);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Product updated successfully',
-            'data' => $product,
-        ], Response::HTTP_OK);
+        return $this->successResponse(
+            data: $product->fresh(),
+            message: 'Product updated successfully',
+            statusCode: Response::HTTP_OK
+        );
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Product deleted successfully',
-        ], Response::HTTP_OK);
+        return $this->successResponse(
+            message: 'Product deleted successfully',
+            statusCode: Response::HTTP_OK
+        );
     }
 }

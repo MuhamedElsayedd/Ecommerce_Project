@@ -10,10 +10,6 @@ use App\Http\Controllers\Api\V1\Auth\CheckOTPController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 // Authentication(Unprotected Routes)
 Route::post('register', RegisterController::class);
@@ -29,7 +25,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail']);
     Route::get('/verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify']);
     Route::post('/check-otp', [CheckOTPController::class, 'checkOTP']);
+
+
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('products', ProductController::class);
+    });
+
+    Route::middleware(['role:user'])->group(function () {
+        Route::get('/products', [ProductController::class, 'index']);
+        Route::get('/products/{id}', [ProductController::class, 'show']);
+    });
 });
-
-
-Route::resource('products', ProductController::class);
