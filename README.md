@@ -1,5 +1,5 @@
 
-<h1 align="center">🛍️ Ecommerce Project (Laravel API)</h1>
+<h1 align="center">🛍️ Ecommerce Project (RESTful API)</h1>
 
 ## 🚀 Overview
 
