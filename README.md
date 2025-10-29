@@ -1,13 +1,6 @@
 
 <h1 align="center">🛍️ Ecommerce Project (Laravel API)</h1>
 
-<p align="center">
-  <a href="https://github.com/MuhamedElsayedd/Ecommerce_Project"><img src="https://img.shields.io/badge/Laravel-12-red?style=for-the-badge&logo=laravel"></a>
-  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/badge/PHP-8.2-blue?style=for-the-badge&logo=php"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=githubactions"></a>
-  <a href="#"><img src="https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge"></a>
-</p>
-
 ---
 
 ## 🚀 Overview
